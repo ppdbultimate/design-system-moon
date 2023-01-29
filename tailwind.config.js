@@ -10,6 +10,15 @@ module.exports = {
         primary: ['Inter', ...fontFamily.sans],
         averta: ['AvertaStd', ...fontFamily.sans],
       },
+      backgroundImage: {
+        /**
+         * When naming background object, please use kebab-case with the format
+         * [section]-[sub-section(if any)]-[usage] or [usage] for general purpose
+         */
+        noise: 'url(/images/noise.png)',
+        'landing-cta-particle':
+          'url(https://res.cloudinary.com/dagugstv5/image/upload/v1675000632/ppdb-jatim-2023/pages/landing/cta/cta-particle_eghozj.png)',
+      },
       colors: {
         primary: {
           50: 'rgb(var(--tw-color-primary-50) / <alpha-value>)',

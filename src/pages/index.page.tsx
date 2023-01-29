@@ -46,6 +46,19 @@ export default function HomePage() {
               </div>
             </div>
 
+            <div className='mt-6'>
+              <Typography as='h2' variant='h6'>
+                View
+              </Typography>
+              <div className='mt-2 flex flex-wrap justify-center gap-2'>
+                {view.map(({ title, route }) => (
+                  <ButtonLink key={route} href={route} variant='outline'>
+                    {title}
+                  </ButtonLink>
+                ))}
+              </div>
+            </div>
+
             <footer className='absolute bottom-2 text-gray-700'>
               © {new Date().getFullYear()} By{' '}
               <UnderlineLink href='https://theodorusclarence.com?ref=aether-design-system'>
@@ -112,6 +125,13 @@ const sandbox = [
   {
     title: 'Table',
     route: '/sandbox/table',
+  },
+];
+
+const view = [
+  {
+    title: 'Landing Page',
+    route: '/view/landing',
   },
 ];
 //#endregion  //*======== Sandbox ===========
