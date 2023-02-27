@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+    fe:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: fe
+        restart: unless-stopped
+        tty: true
+        working_dir: /app
+        ports:
+            - "3002:3000"
