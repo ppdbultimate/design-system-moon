@@ -46,6 +46,7 @@
     "react-wrap-balancer": "^0.4.0",
     "slick-carousel": "^1.8.1",
     "tailwind-merge": "^1.10.0",
+    "tailwind-variants": "^0.1.2",
     "tailwindcss-animate": "^1.0.5",
     "zustand": "^4.3.3"
   },
