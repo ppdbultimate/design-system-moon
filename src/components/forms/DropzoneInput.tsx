@@ -9,7 +9,9 @@ import {
 } from 'react-dropzone';
 import { Controller, useFormContext } from 'react-hook-form';
 
+import TextButton from '@/components/buttons/TextButton';
 import FilePreview from '@/components/forms/FilePreview';
+import PanduanKompresModal from '@/components/modal/PanduanKompresModal';
 import Typography from '@/components/typography/Typography';
 
 import { FileWithPreview } from '@/types/dropzone';
@@ -262,6 +264,11 @@ export default function DropzoneInput({
               {!hideError && error && (
                 <Typography variant='c1' color='danger' className='mt-1'>
                   {error?.message?.toString()}
+                  {errors[id]?.message
+                    ?.toString()
+                    .includes('File terlalu besar') && (
+                    <PanduanKompresForDropzone />
+                  )}
                 </Typography>
               )}
               {!readOnly && !!files?.length && (
@@ -281,5 +288,22 @@ export default function DropzoneInput({
         />
       )}
     </div>
+  );
+}
+
+function PanduanKompresForDropzone() {
+  return (
+    <PanduanKompresModal>
+      {({ openModal }) => (
+        <span className='mt-2 flex items-center justify-between rounded-lg border border-gray-300 p-2 shadow-sm'>
+          <span className='text-typo-secondary'>
+            Lihat panduan kompres gambar
+          </span>
+          <TextButton onClick={openModal} size='sm' className='md:text-xs'>
+            di sini
+          </TextButton>
+        </span>
+      )}
+    </PanduanKompresModal>
   );
 }
