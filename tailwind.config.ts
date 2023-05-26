@@ -1,14 +1,70 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const { fontFamily } = require('tailwindcss/defaultTheme');
+import { Config } from 'tailwindcss';
+import defaultTheme from 'tailwindcss/defaultTheme';
 
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     extend: {
       fontFamily: {
-        primary: ['Inter', ...fontFamily.sans],
-        averta: ['AvertaStd', ...fontFamily.sans],
+        primary: ['Inter', ...defaultTheme.fontFamily.sans],
+        averta: ['AvertaStd', ...defaultTheme.fontFamily.sans],
+      },
+      fontSize: {
+        j1: extendFontSize('4xl', {
+          fontWeight: '700',
+        }),
+        j2: extendFontSize('3xl', {
+          fontWeight: '700',
+        }),
+        h1: extendFontSize('2xl', {
+          fontWeight: '600',
+        }),
+        h2: extendFontSize('xl', {
+          fontWeight: '600',
+        }),
+        h3: extendFontSize('lg', {
+          fontWeight: '600',
+        }),
+        h4: extendFontSize('base', {
+          fontWeight: '700',
+        }),
+        h5: extendFontSize('base', {
+          fontWeight: '600',
+        }),
+        h6: extendFontSize('sm', {
+          fontWeight: '600',
+        }),
+        s1: extendFontSize('lg', {
+          fontWeight: '500',
+        }),
+        s2: extendFontSize('base', {
+          fontWeight: '500',
+        }),
+        s3: extendFontSize('sm', {
+          fontWeight: '500',
+        }),
+        s4: extendFontSize('xs', {
+          fontWeight: '500',
+        }),
+        b1: extendFontSize('lg', {
+          fontWeight: '400',
+        }),
+        b2: extendFontSize('base', {
+          fontWeight: '400',
+        }),
+        b3: extendFontSize('sm', {
+          fontWeight: '400',
+        }),
+        c1: extendFontSize('xs', {
+          fontWeight: '400',
+        }),
+        c2: [
+          '11px',
+          {
+            lineHeight: '14px',
+            fontWeight: '400',
+          },
+        ],
       },
       colors: {
         primary: {
@@ -59,12 +115,12 @@ module.exports = {
       keyframes: {
         flicker: {
           '0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100%': {
-            opacity: 0.99,
+            opacity: '0.99',
             filter:
               'drop-shadow(0 0 1px rgba(252, 211, 77)) drop-shadow(0 0 15px rgba(245, 158, 11)) drop-shadow(0 0 1px rgba(252, 211, 77))',
           },
           '20%, 21.999%, 63%, 63.999%, 65%, 69.999%': {
-            opacity: 0.4,
+            opacity: '0.4',
             filter: 'none',
           },
         },
@@ -89,4 +145,21 @@ module.exports = {
     require('@tailwindcss/container-queries'),
     require('tailwindcss-animate'),
   ],
-};
+} satisfies Config;
+
+function extendFontSize(
+  variant: keyof typeof defaultTheme.fontSize,
+  extend: Partial<{
+    lineHeight: string;
+    letterSpacing: string;
+    fontWeight: string | number;
+  }>
+): (typeof defaultTheme.fontSize)[typeof variant] {
+  return [
+    defaultTheme.fontSize[variant][0],
+    {
+      ...defaultTheme.fontSize[variant][1],
+      ...extend,
+    },
+  ];
+}
