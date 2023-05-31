@@ -12,6 +12,8 @@ import { ExtractProps } from '@/types/helper';
 type ModalProps = {
   className?: string;
   children: React.ReactNode;
+  /** Set to true to prevent closing the modal when clicking outside the modal or press esc button */
+  disableClickOutside?: boolean;
   /** Use sm:max-w-xx to adjust max-width */
   modalContainerClassName?: string;
   open: boolean;
@@ -23,6 +25,7 @@ type ModalProps = {
 export function ModalRoot({
   className,
   children,
+  disableClickOutside = false,
   modalContainerClassName,
   open,
   setOpen,
@@ -37,13 +40,13 @@ export function ModalRoot({
     <Transition.Root show={open} as={React.Fragment}>
       <Dialog
         as='div'
-        className={clsxm('fixed inset-0 z-40 overflow-y-auto', className)}
+        className={clsxm('fixed inset-0 z-[100] overflow-y-auto', className)}
         {...rest}
-        onClose={setOpen}
+        onClose={() => setOpen(disableClickOutside ? true : false)}
         initialFocus={containerRef}
       >
         <div
-          className='flex min-h-screen items-center justify-center px-4 pt-4 pb-20 text-center sm:block sm:p-0'
+          className='flex min-h-screen items-center justify-center p-4 text-center sm:block sm:p-0'
           ref={containerRef}
         >
           <Transition.Child
@@ -82,7 +85,7 @@ export function ModalRoot({
               )}
             >
               <div className='w-full divide-y divide-typo-divider'>
-                <header className='flex items-center justify-between py-4 px-4 sm:px-6'>
+                <header className='flex items-center justify-between px-4 py-4 sm:px-6'>
                   <Typography
                     as={Dialog.Title}
                     variant='h2'
@@ -90,13 +93,15 @@ export function ModalRoot({
                   >
                     {title}
                   </Typography>
-                  <IconButton
-                    onClick={() => setOpen(false)}
-                    variant='ghost'
-                    size='sm'
-                    icon={X}
-                    iconClassName='text-2xl text-typo-icons'
-                  />
+                  {!disableClickOutside && (
+                    <IconButton
+                      onClick={() => setOpen(false)}
+                      variant='ghost'
+                      size='sm'
+                      icon={X}
+                      iconClassName='text-2xl text-typo-icons'
+                    />
+                  )}
                 </header>
                 {children}
               </div>
