@@ -32,12 +32,15 @@ ModalOverlay.displayName = DialogPrimitive.Overlay.displayName;
 
 const ModalContent = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
->(({ className, children, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content> & {
+    disableClickOutside?: boolean;
+  }
+>(({ className, children, disableClickOutside, ...props }, ref) => (
   <ModalPortal>
     <ModalOverlay>
       <DialogPrimitive.Content
         ref={ref}
+        onPointerDownOutside={(e) => disableClickOutside && e.preventDefault()}
         className={clsxm([
           'relative',
           'duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95',
@@ -48,17 +51,19 @@ const ModalContent = React.forwardRef<
         {...props}
       >
         {children}
-        <DialogPrimitive.Close
-          asChild
-          className={clsxm('absolute right-4 top-4', className)}
-        >
-          <IconButton
-            variant='ghost'
-            size='sm'
-            icon={X}
-            iconClassName='text-2xl text-typo-icons'
-          />
-        </DialogPrimitive.Close>
+        {!disableClickOutside && (
+          <DialogPrimitive.Close
+            asChild
+            className={clsxm('absolute right-4 top-4', className)}
+          >
+            <IconButton
+              variant='ghost'
+              size='sm'
+              icon={X}
+              iconClassName='text-2xl text-typo-icons'
+            />
+          </DialogPrimitive.Close>
+        )}
       </DialogPrimitive.Content>
     </ModalOverlay>
   </ModalPortal>

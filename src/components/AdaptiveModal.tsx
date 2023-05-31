@@ -29,6 +29,7 @@ import { ExtractProps } from '@/types/helper';
 type AdaptiveModalProps = {
   title: string;
   description?: string;
+  disableClickOutside?: boolean;
   /** @default 'Close' */
   closeText?: string;
   /** @default false */
@@ -42,6 +43,7 @@ type AdaptiveModalProps = {
 export default function AdaptiveModal({
   title,
   description,
+  disableClickOutside = false,
   closeText = 'Close',
   isOpen = false,
   setIsOpen,
@@ -57,12 +59,16 @@ export default function AdaptiveModal({
     setIsOpen(isOpen);
   }, [isOpen, setIsOpen]);
 
+  const handleOpenChange = (open: boolean) => {
+    disableClickOutside ? setIsOpen(true) : setIsOpen(open);
+  };
+
   const isDesktop = useMediaQuery('(min-width: 768px)');
 
   if (isDesktop)
     return (
-      <Modal open={isOpen} onOpenChange={setIsOpen}>
-        <ModalContent>
+      <Modal open={isOpen} onOpenChange={handleOpenChange}>
+        <ModalContent disableClickOutside={disableClickOutside}>
           <ModalHeader>
             <ModalTitle>{title}</ModalTitle>
             {description && <ModalDescription>{description}</ModalDescription>}
@@ -71,9 +77,11 @@ export default function AdaptiveModal({
           {children && <ModalSection>{children}</ModalSection>}
 
           <ModalFooter>
-            <ModalClose asChild>
-              <Button variant='outline'>{closeText}</Button>
-            </ModalClose>
+            {!disableClickOutside && (
+              <ModalClose asChild>
+                <Button variant='outline'>{closeText}</Button>
+              </ModalClose>
+            )}
             {actionButtonProps && (
               <Button variant='primary' {...actionButtonProps} />
             )}
@@ -83,8 +91,8 @@ export default function AdaptiveModal({
     );
 
   return (
-    <Drawer open={isOpen} onOpenChange={setIsOpen}>
-      <DrawerContent>
+    <Drawer open={isOpen} onOpenChange={handleOpenChange}>
+      <DrawerContent disableClickOutside={disableClickOutside}>
         <DrawerHeader>
           <DrawerTitle>{title}</DrawerTitle>
           {description && <DrawerDescription>{description}</DrawerDescription>}
@@ -96,9 +104,11 @@ export default function AdaptiveModal({
           {actionButtonProps && (
             <Button variant='primary' {...actionButtonProps} />
           )}
-          <DrawerClose asChild>
-            <Button variant='outline'>{closeText}</Button>
-          </DrawerClose>
+          {!disableClickOutside && (
+            <DrawerClose asChild>
+              <Button variant='outline'>{closeText}</Button>
+            </DrawerClose>
+          )}
         </DrawerFooter>
       </DrawerContent>
     </Drawer>
