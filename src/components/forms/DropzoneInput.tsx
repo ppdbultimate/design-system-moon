@@ -1,7 +1,12 @@
 import clsx from 'clsx';
 import get from 'lodash.get';
 import * as React from 'react';
-import { Accept, FileRejection, useDropzone } from 'react-dropzone';
+import {
+  Accept,
+  DropzoneOptions,
+  FileRejection,
+  useDropzone,
+} from 'react-dropzone';
 import { Controller, useFormContext } from 'react-hook-form';
 
 import FilePreview from '@/components/forms/FilePreview';
@@ -18,7 +23,10 @@ type DropzoneInputProps = {
   readOnly?: boolean;
   hideError?: boolean;
   validation?: Record<string, unknown>;
-};
+} & Partial<DropzoneOptions>;
+
+const DEFAULT_MIN_SIZE = 100_000;
+const DEFAULT_MAX_SIZE = 400_000;
 
 export default function DropzoneInput({
   accept,
@@ -29,6 +37,7 @@ export default function DropzoneInput({
   validation,
   readOnly,
   hideError = false,
+  ...dropzoneOptions
 }: DropzoneInputProps) {
   const {
     control,
@@ -62,9 +71,29 @@ export default function DropzoneInput({
     <T extends File>(acceptedFiles: T[], rejectedFiles: FileRejection[]) => {
       if (rejectedFiles && rejectedFiles.length > 0) {
         setValue(id, files ? [...files] : null);
+        setValue(id, files ? [...files] : null);
+
+        let message = rejectedFiles && rejectedFiles[0].errors[0].message;
+        if (rejectedFiles[0].errors[0].code === 'file-too-large') {
+          message = `File terlalu besar, maksimal ${
+            (dropzoneOptions.maxSize || DEFAULT_MAX_SIZE) / 1000
+          }KB`;
+        } else if (rejectedFiles[0].errors[0].code === 'file-too-small') {
+          message = `File terlalu kecil, minimal ${
+            (dropzoneOptions.minSize || DEFAULT_MIN_SIZE) / 1000
+          }KB`;
+        } else if (rejectedFiles[0].errors[0].code === 'too-many-files') {
+          message = `Maksimal ${maxFiles} file`;
+        } else if (rejectedFiles[0].errors[0].code === 'file-invalid-type') {
+          message = message.replace(
+            'File type must be',
+            'Ekstensi file yang diperbolehkan adalah',
+          );
+        }
+
         setError(id, {
           type: 'manual',
-          message: rejectedFiles && rejectedFiles[0].errors[0].message,
+          message: message,
         });
       } else {
         const acceptedFilesPreview = acceptedFiles.map((file: T) =>
@@ -91,7 +120,16 @@ export default function DropzoneInput({
         clearErrors(id);
       }
     },
-    [clearErrors, files, id, maxFiles, setError, setValue],
+    [
+      clearErrors,
+      dropzoneOptions.maxSize,
+      dropzoneOptions.minSize,
+      files,
+      id,
+      maxFiles,
+      setError,
+      setValue,
+    ],
   );
 
   React.useEffect(() => {
@@ -132,7 +170,11 @@ export default function DropzoneInput({
     onDrop,
     accept,
     maxFiles,
-    maxSize: 1000000,
+    // 5KB
+    minSize: dropzoneOptions.minSize || DEFAULT_MIN_SIZE,
+    // 400KB
+    maxSize: dropzoneOptions.maxSize || DEFAULT_MAX_SIZE,
+    ...dropzoneOptions,
   });
 
   return (
