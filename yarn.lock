@@ -7080,6 +7080,13 @@ tailwind-merge@^1.10.0:
   resolved "https://registry.yarnpkg.com/tailwind-merge/-/tailwind-merge-1.10.0.tgz#535541c7373d8a31afa81a4267e2ab9b4afa9429"
   integrity sha512-WFnDXSS4kFTZwjKg5/oZSGzBRU/l+qcbv5NVTzLUQvJ9yovDAP05h0F2+ZFW0Lw9EcgRoc2AfURUdZvnEFrXKg==
 
+tailwind-variants@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/tailwind-variants/-/tailwind-variants-0.1.2.tgz#0aa87a86a8168874daf6122aac8ab0eda6df01a7"
+  integrity sha512-MOTaBS5Hg7RN/M0tlMZCUD1crDGPlHe7XsFS7+I5bc4hfwQPVuTiPiRqivW9xH/0QvtuVo8AlEwvR2uxSC3phw==
+  dependencies:
+    tailwind-merge "^1.10.0"
+
 tailwindcss-animate@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/tailwindcss-animate/-/tailwindcss-animate-1.0.5.tgz#a6720e3b0616e1ff922b32846729881c626a069d"
