@@ -104,7 +104,7 @@ export default function BaseDialog({
           >
             <div
               className={clsx(
-                'z-auto inline-block w-full transform overflow-hidden rounded-lg bg-white text-left align-bottom shadow-xl transition-all',
+                'z-auto inline-block w-full transform overflow-hidden rounded-lg bg-white text-left align-bottom shadow-xl transition-all pointer-events-auto',
                 'pt-5 pb-4 sm:my-8 sm:pt-6 sm:pb-4',
                 'sm:max-w-lg sm:align-middle',
               )}
