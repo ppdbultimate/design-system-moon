@@ -164,5 +164,9 @@ const sandbox = [
     title: 'Adaptive Modal',
     route: '/sandbox/adaptive-modal',
   },
+  {
+    title: 'Sonner Toaster',
+    route: '/sandbox/sonner-toast',
+  },
 ];
 //#endregion  //*======== Sandbox ===========
