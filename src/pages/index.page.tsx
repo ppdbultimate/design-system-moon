@@ -160,5 +160,9 @@ const sandbox = [
     title: 'Drawer',
     route: '/sandbox/drawer',
   },
+  {
+    title: 'Adaptive Modal',
+    route: '/sandbox/adaptive-modal',
+  },
 ];
 //#endregion  //*======== Sandbox ===========
