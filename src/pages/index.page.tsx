@@ -156,5 +156,9 @@ const sandbox = [
     title: 'Statistics Card',
     route: '/sandbox/statistics-card',
   },
+  {
+    title: 'Drawer',
+    route: '/sandbox/drawer',
+  },
 ];
 //#endregion  //*======== Sandbox ===========
