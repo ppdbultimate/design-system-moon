@@ -145,7 +145,7 @@ export default function DropzoneInput({
 
       {readOnly && !(files?.length > 0) ? (
         <div className='mt-1 divide-y divide-gray-300 rounded-lg border border-gray-300 py-3 pl-3 pr-4 text-sm'>
-          No file uploaded
+          Tidak ada file yang diupload
         </div>
       ) : files?.length >= maxFiles ? (
         <ul
@@ -203,11 +203,11 @@ export default function DropzoneInput({
                       />
                     </svg>
                     <p className='text-gray-500'>
-                      Drag and drop file here, or click to choose file
+                      Klik untuk upload, atau drag file ke sini
                     </p>
                     <p className='text-xs text-gray-500'>{`${
                       maxFiles - (files?.length || 0)
-                    } file(s) remaining`}</p>
+                    } file lagi`}</p>
                   </div>
                 </div>
               </div>
