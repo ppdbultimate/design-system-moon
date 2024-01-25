@@ -22,7 +22,7 @@ const ModalOverlay = React.forwardRef<
   <DialogPrimitive.Overlay
     ref={ref}
     className={clsxm([
-      'fixed inset-0 z-10 grid place-items-center overflow-y-auto bg-gray-500/80 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 p-10',
+      'fixed inset-0 z-30 grid place-items-center overflow-y-auto bg-gray-500/80 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 p-10',
       className,
     ])}
     {...props}

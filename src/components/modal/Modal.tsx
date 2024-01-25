@@ -40,7 +40,7 @@ export function ModalRoot({
     <Transition.Root show={open} as={React.Fragment}>
       <Dialog
         as='div'
-        className={clsxm('fixed inset-0 z-[100] overflow-y-auto', className)}
+        className={clsxm('fixed inset-0 z-30 overflow-y-auto', className)}
         {...rest}
         onClose={() => setOpen(disableClickOutside ? true : false)}
         initialFocus={containerRef}
