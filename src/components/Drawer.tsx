@@ -25,7 +25,7 @@ const DrawerOverlay = React.forwardRef<
   <DrawerPrimitive.Overlay
     ref={ref}
     className={clsxm([
-      'fixed inset-0 z-50 bg-gray-500/80 backdrop-blur-sm',
+      'fixed inset-0 z-30 bg-gray-500/80 backdrop-blur-sm',
       className,
     ])}
     {...props}
@@ -45,7 +45,7 @@ const DrawerContent = React.forwardRef<
       ref={ref}
       onPointerDownOutside={(e) => disableClickOutside && e.preventDefault()}
       className={clsxm(
-        'fixed inset-x-0 bottom-0 z-50 flex h-auto flex-col rounded-t-xl bg-white',
+        'fixed inset-x-0 z-30 bottom-0 flex h-auto flex-col rounded-t-xl bg-white',
         className,
       )}
       {...props}

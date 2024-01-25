@@ -2,6 +2,7 @@ import * as React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import logger from '@/lib/logger';
+import useDialog from '@/hooks/useDialog';
 
 import AdaptiveModal from '@/components/AdaptiveModal';
 import Input from '@/components/forms/Input';
@@ -32,10 +33,23 @@ export default function ExampleAdaptiveModal({
   const { handleSubmit } = methods;
   //#endregion  //*======== Form ===========
 
+  const dialog = useDialog();
   //#region  //*=========== Form Submit ===========
   const onSubmit = (data: unknown) => {
     logger({ data }, 'rhf.tsx line 26');
-    setIsOpen(false);
+
+    dialog({
+      title: 'Submit Form',
+      description: 'Are you sure you want to submit this form?',
+      submitText: 'Hurray',
+      variant: 'warning',
+      catchOnCancel: true,
+    })
+      .then(() => {
+        setIsOpen(false);
+        logger('Accepted');
+      })
+      .catch(() => logger('Canceled'));
 
     return;
   };
