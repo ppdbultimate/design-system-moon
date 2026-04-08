@@ -27,7 +27,7 @@
     "@tanstack/react-query-devtools": "^4.24.4",
     "@tanstack/react-table": "^8.11.2",
     "auto-zustand-selectors-hook": "^2.0.0",
-    "axios": "1.6.3",
+    "axios": "1.15.0",
     "clsx": "^2.0.0",
     "immer": "^9.0.21",
     "lodash.get": "^4.4.2",
